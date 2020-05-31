@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.HomePage.as_view(), name="home"),
@@ -24,4 +26,4 @@ urlpatterns = [
     path('thanks/', views.ThanksPage.as_view(), name="thanks"),
     path('petme/', include("petme_app.urls", namespace="petme_app")),
     path('petme/',include("django.contrib.auth.urls")),
-]
+] 

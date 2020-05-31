@@ -1,42 +1,12 @@
-from django.db import models
-from django.conf import settings
-from django.urls import reverse
-import misaka
-from society.models import Society
+from django.urls import path
+from . import views
 
-from django.contrib.auth import get_user_model
-User = get_user_model()
+app_name = 'society'
 
-
-class Pet(models.Model):
-    user = models.ForeignKey(User, related_name="pets",on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now=True)
-    pet_name = models.CharField(max_length=255)
-    breed = models.CharField(max_length=255)
-    animal_type = models.CharField(max_length=255)
-    size = models.CharField(max_length=255)
-    age = models.CharField(max_length=255)
-    gender = models.CharField(max_length=255)
-    message_html = models.TextField(editable=False)
-    society = models.ForeignKey(Society, related_name="pets",null=True, 
-                                blank=True,on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.pet_name
-
-    def save(self, *args, **kwargs):
-        self.pet_name = misaka.html(self.pet_name)
-        super().save(*args, **kwargs)
-
-    def get_absolute_url(self):
-        return reverse(
-            "posts:single",
-            kwargs={
-                "username": self.user.username,
-                "pk": self.pk
-            }
-        )
-
-    class Meta:
-        ordering = ["-created_at"]
-        unique_together = ["user", "pet_name"]
+urlpatterns = [
+    path('', views.ListSocieties.as_view(), name="all"),
+    path("new/", views.CreateSociety.as_view(), name="create"),
+    path("petsposts/in/<slug>/",views.SingleSociety.as_view(),name="single"),
+    path("join/<slug>/",views.JoinSociety.as_view(),name="join"),
+    path("leave/<slug>/",views.LeaveSociety.as_view(),name="leave"),
+]
