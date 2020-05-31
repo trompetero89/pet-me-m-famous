@@ -1,7 +1,7 @@
 # pet-me-m-famous
 pet-me-m-famous
 
-Proyecto apra la hackaton Globhack - mayo 2020
+Proyecto para la hackaton Globhack - mayo 2020 - Globant
 
 Mientras lees este texto desde el confort de tu hogar, hay millones de mascotas sufriendo en la calle y queriendo acompañarte.
 Se estima que en Colombia existen cerca de un millón de animales abandonados.
